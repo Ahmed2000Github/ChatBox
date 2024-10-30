@@ -52,17 +52,25 @@ class _HomeState extends State<Home> {
       ),
       bottomNavigationBar: Container(
         padding: EdgeInsets.all(5),
-        color: theme.canvasColor,
+        decoration:BoxDecoration(
+          color: theme.canvasColor,
+          boxShadow: [
+            BoxShadow(
+              color: theme.primaryColor,
+              blurRadius: 1,
+              spreadRadius: 0.5
+            )
+          ]
+        ),
         child: BottomNavigationBar(
           currentIndex: _currentIndex,
           elevation: 0,
           onTap: _onItemTapped,
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.white,
-          unselectedItemColor: theme.scaffoldBackgroundColor,
+          unselectedItemColor: theme.disabledColor,
           selectedItemColor: theme.primaryColor,
           unselectedLabelStyle:
-              TextStyle(fontFamily: "Caros", color: Colors.white),
+              TextStyle(fontFamily: "Caros"), 
           items: [
             BottomNavigationBarItem(
               icon: SvgPicture.asset("${AppConstants.iconsPath}message.svg",
@@ -88,6 +96,6 @@ class _HomeState extends State<Home> {
   }
   _getFilteredColor(BuildContext context,int index){
     final theme = Theme.of(context);
-    return _currentIndex == index?theme.primaryColor:Color(0xFF797C7B);
+    return _currentIndex == index?theme.primaryColor: theme.disabledColor;
   }
 }

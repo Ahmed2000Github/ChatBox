@@ -5,10 +5,14 @@ class AppTheme {
   static const Color secondaryColor = Color(0xFFF1F6FA);
   static const Color errorColor = Color(0xFFFF2D1B);
   static const Color outLineColor = Color(0xFF363F3B);
+  static const Color disabledColor = Color(0xFF797C7B);
+  static const Color onlineColor = Color(0xFF0FE16D);
+  static const Color offlineColor = Color(0xFF9A9E9C);
 
   static ThemeData get lightTheme {
     return ThemeData(
       brightness: Brightness.light,
+      disabledColor: disabledColor,
       primaryColor: primaryColor,
       scaffoldBackgroundColor: Colors.white,
       appBarTheme: const AppBarTheme(
@@ -68,18 +72,14 @@ class AppTheme {
          error: errorColor,
          outline: outLineColor, 
       ),
-      bottomNavigationBarTheme:BottomNavigationBarThemeData(
-        backgroundColor: Colors.red,
-        unselectedLabelStyle: TextStyle(
-          fontFamily: "Caros",
-          color: Colors.white
-        )
-      )
+          canvasColor: Colors.black,
+      
     );
   }
 
   static ThemeData get darkTheme {
     return ThemeData(
+      disabledColor: disabledColor,
       brightness: Brightness.dark,
       primaryColor: primaryColor,
       scaffoldBackgroundColor: Colors.black,
@@ -140,10 +140,7 @@ class AppTheme {
         outline: outLineColor,
       ),
       canvasColor: Colors.white,
-      bottomNavigationBarTheme:
-            BottomNavigationBarThemeData(backgroundColor: Colors.red,
-             unselectedLabelStyle:
-                TextStyle(fontFamily: "Caros", color: Colors.white))
+     
     );
   }
 }
