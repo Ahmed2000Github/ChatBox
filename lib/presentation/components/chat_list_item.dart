@@ -2,6 +2,7 @@ import 'package:chat_box/core/app_constants.dart';
 import 'package:chat_box/core/app_routes.dart';
 import 'package:chat_box/core/app_theme.dart';
 import 'package:chat_box/domain/entities/chat_entry.dart';
+import 'package:chat_box/presentation/components/avatar_with_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -59,26 +60,10 @@ class ChatListItem extends StatelessWidget {
           height: 52,
           child: Row(
             children: [
-              Stack(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: theme.canvasColor,
-                    foregroundImage: AssetImage(chatEntry.profileImage),
-                    radius: 30,
-                  ),
-                  Positioned(
-                    bottom: 2,
-                    right: 5,
-                    child: Container(
-                      width: 10,
-                      height: 10,
-                      decoration: BoxDecoration(
-                          color: AppTheme.onlineColor,
-                          borderRadius: BorderRadius.circular(40)),
-                    ),
-                  )
-                ],
-              ),
+             AvatarWithStatus(
+              image: chatEntry.profileImage,
+              status: true,
+             ),
               SizedBox(
                 width: 2,
               ),

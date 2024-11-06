@@ -3,6 +3,7 @@ import 'package:chat_box/presentation/views/home.dart';
 import 'package:chat_box/presentation/views/login.dart';
 import 'package:chat_box/presentation/views/not_found.dart';
 import 'package:chat_box/presentation/views/signup.dart';
+import 'package:chat_box/presentation/views/voice_call.dart';
 import 'package:chat_box/presentation/views/welcome.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ class AppRoutes {
   static const String signup = '/signup';
   static const String home = '/home';
   static const String conversation = '/conversation';
+  static const String voiceCall = '/voiceCall';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     Widget page;
@@ -31,6 +33,9 @@ class AppRoutes {
         break;
       case conversation:
         page =  Conversation();
+        break;
+      case voiceCall:
+        page =  VoiceCall();
         break;
       default:
         page = const NotFound();

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static const Color primaryColor = Color(0xFF24786D);
-  static const Color secondaryColor = Color(0xFFF1F6FA);
+  static const Color primaryColorLight = Color(0xFF81CBC2);
+  static const Color secondaryColor = Color(0xFFF2F7FB);
+  static const Color secondaryDarkColor = Color(0xFF353535);
   static const Color errorColor = Color(0xFFFF2D1B);
   static const Color outLineColor = Color(0xFF363F3B);
   static const Color disabledColor = Color(0xFF797C7B);
@@ -82,6 +84,7 @@ class AppTheme {
       disabledColor: disabledColor,
       brightness: Brightness.dark,
       primaryColor: primaryColor,
+      primaryColorLight: primaryColorLight,
       scaffoldBackgroundColor: Colors.black,
       appBarTheme: const AppBarTheme(
         backgroundColor: primaryColor,
@@ -135,9 +138,10 @@ class AppTheme {
       ),
       colorScheme: const ColorScheme.dark(
         primary: primaryColor,
-        secondary: secondaryColor,
+        secondary: secondaryDarkColor,
         error: errorColor,
         outline: outLineColor,
+        onSurface: Colors.white
       ),
       canvasColor: Colors.white,
      

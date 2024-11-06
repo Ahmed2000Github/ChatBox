@@ -15,6 +15,10 @@ dependencies:
   flutter_svg:
   uuid:
   flutter_slidable:
+  audioplayers:
+  file_picker:
+  waved_audio_player:
+  flutter_riverpod: 
 
 
 
@@ -36,6 +40,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/test/
   fonts:
     - family: Caros
       fonts:
