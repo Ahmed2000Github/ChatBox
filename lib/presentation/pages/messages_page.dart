@@ -9,49 +9,49 @@ import 'package:uuid/uuid.dart';
 class MessagesPage extends StatelessWidget {
   final _chatEntries = [
     ChatEntry(
-        id: Uuid().v1(),
+        id: const Uuid().v1(),
         profileImage: "${AppConstants.imagesPath}person1.png",
         name: "Alex Linderson",
         lastMessage: "How are you today?",
         unReaded: 3,
         lastMessageSendAt: "2 min ago"),
     ChatEntry(
-        id: Uuid().v1(),
+        id: const Uuid().v1(),
         profileImage: "${AppConstants.imagesPath}person2.png",
         name: "Alex Linderson",
         lastMessage: "How are you today?",
         unReaded: 5,
         lastMessageSendAt: "2 min ago"),
     ChatEntry(
-        id: Uuid().v1(),
+        id: const Uuid().v1(),
         profileImage: "${AppConstants.imagesPath}person3.png",
         name: "John Borino",
         lastMessage: "Have a good day 🌸",
         unReaded: 0,
         lastMessageSendAt: "2 min ago"),
     ChatEntry(
-        id: Uuid().v1(),
+        id: const Uuid().v1(),
         profileImage: "${AppConstants.imagesPath}person1.png",
         name: "Alex Linderson",
         lastMessage: "How are you today?",
         unReaded: 0,
         lastMessageSendAt: "2 min ago"),
     ChatEntry(
-        id: Uuid().v1(),
+        id: const Uuid().v1(),
         profileImage: "${AppConstants.imagesPath}person2.png",
         name: "Alex Linderson",
         lastMessage: "How are you today?",
         unReaded: 0,
         lastMessageSendAt: "2 min ago"),
     ChatEntry(
-        id: Uuid().v1(),
+        id: const Uuid().v1(),
         profileImage: "${AppConstants.imagesPath}person2.png",
         name: "Alex Linderson",
         lastMessage: "How are you today?",
         unReaded: 0,
         lastMessageSendAt: "2 min ago"),
     ChatEntry(
-        id: Uuid().v1(),
+        id: const Uuid().v1(),
         profileImage: "${AppConstants.imagesPath}person2.png",
         name: "Alex Linderson",
         lastMessage: "How are you today?",
@@ -67,7 +67,7 @@ class MessagesPage extends StatelessWidget {
       children: [
         Container(
           height: 44,
-          margin: EdgeInsets.only(top: 20),
+          margin: const EdgeInsets.only(top: 20),
           padding:
               EdgeInsets.symmetric(horizontal: AppConstants.horizontalPadding),
           child: Row(
@@ -75,7 +75,7 @@ class MessagesPage extends StatelessWidget {
               Container(
                   height: 44,
                   width: 44,
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                       border: Border.all(
                         color: theme.colorScheme.outline,
@@ -85,13 +85,19 @@ class MessagesPage extends StatelessWidget {
                     AppConstants.iconsPath + "search.svg",
                     color: theme.textTheme.bodySmall!.color,
                   )),
-              Spacer(),
+              const Spacer(),
               Text(
                 "Home",
-                style: theme.textTheme.bodyLarge,
+                style: theme.textTheme.bodyLarge!.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              Spacer(),
-              Image.asset(AppConstants.imagesPath + "main-person.png")
+              const Spacer(),
+              CircleAvatar(
+                backgroundColor: theme.scaffoldBackgroundColor,
+                foregroundImage: AssetImage(AppConstants.imagesPath + "main-person.png",),
+                radius: 22,
+              )
             ],
           ),
         ),
@@ -100,14 +106,14 @@ class MessagesPage extends StatelessWidget {
             child: Container(
                 decoration: BoxDecoration(
                     color: theme.textTheme.bodySmall!.color,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30))),
                 child: Column(
                   children: [
                     Center(
                       child: Container(
-                        margin: EdgeInsets.only(top: 20),
+                        margin: const EdgeInsets.only(top: 20),
                         width: 30,
                         height: 5,
                         decoration: BoxDecoration(
@@ -115,7 +121,7 @@ class MessagesPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(40)),
                       ),
                     ),
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
                     Expanded(
                       child: ListView(
                         padding: EdgeInsets.only(

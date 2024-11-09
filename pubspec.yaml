@@ -14,6 +14,7 @@ dependencies:
     sdk: flutter
   flutter_svg:
   uuid:
+  intl: 
   flutter_slidable:
   audioplayers:
   file_picker:

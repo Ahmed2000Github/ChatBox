@@ -1,5 +1,6 @@
 import 'package:chat_box/core/app_constants.dart';
 import 'package:chat_box/core/app_providers.dart' show sharedContentVisibility;
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'
     show Consumer, ConsumerWidget, WidgetRef;
@@ -30,6 +31,22 @@ class ShareContent extends ConsumerWidget {
   ];
   ShareContent({Key? key}) : super(key: key);
 
+  Future<void> pickFile() async {
+    String? _filePath = await FilePicker.platform
+        .pickFiles(type: FileType.audio)
+        .then((result) => result?.files.first.path);
+
+    if (_filePath != null) {
+      // Use the filePath to load audio
+      // setState(() {
+      //   filePath = _filePath;
+      // });
+      print("Selected file path: $_filePath");
+    } else {
+      print("No file selected");
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isOpen = ref.watch(sharedContentVisibility);
@@ -38,7 +55,9 @@ class ShareContent extends ConsumerWidget {
     return AnimatedContainer(
       duration: Duration(milliseconds: 500),
       margin: EdgeInsets.only(top: isOpen ? 0 : height),
-      color: isOpen ? theme.colorScheme.onSurface.withOpacity(.2):Colors.transparent,
+      color: isOpen
+          ? theme.colorScheme.onSurface.withOpacity(.2)
+          : Colors.transparent,
       child: Container(
         child: Container(
           margin: EdgeInsets.only(top: 240),

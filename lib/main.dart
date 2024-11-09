@@ -21,7 +21,7 @@ class ChatBox extends StatelessWidget {
         darkTheme: AppTheme.darkTheme,
         themeMode: ThemeMode.system,
         onGenerateRoute: AppRoutes.generateRoute, 
-        initialRoute: AppRoutes.voiceCall,
+        initialRoute: AppRoutes.home,
       ),
     );
   }

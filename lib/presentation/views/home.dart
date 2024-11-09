@@ -24,7 +24,12 @@ class _HomeState extends State<Home> {
   }
 
   void _onItemTapped(int selectedIndex) {
-    _pageController.jumpToPage(selectedIndex);
+    // _pageController.jumpToPage(selectedIndex);
+     _pageController.animateToPage(
+      selectedIndex,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
@@ -42,6 +47,7 @@ class _HomeState extends State<Home> {
         child: PageView(
           controller: _pageController,
           onPageChanged: _onPageChanged,
+          physics: BouncingScrollPhysics(), 
           children: [
             MessagesPage(),
             CallsPage(),

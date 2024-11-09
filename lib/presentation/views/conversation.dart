@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:chat_box/core/app_constants.dart';
+import 'package:chat_box/core/app_routes.dart';
 import 'package:chat_box/core/extensions/date_time.dart';
 import 'package:chat_box/domain/entities/message.dart';
 import 'package:chat_box/domain/message_type.dart';
@@ -94,204 +95,209 @@ class _ConversationState extends State<Conversation> {
       body: SafeArea(
         child: Stack(
           children: [
-            Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: AppConstants.horizontalPadding),
-                  child: Container(
-                    height: 60,
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    margin: const EdgeInsets.symmetric(vertical: 10),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: SvgPicture.asset(
-                              "${AppConstants.iconsPath}arrow-back.svg",
-                              color: theme.colorScheme.onSurface,
-                            )),
-                        // SizedBox(
-                        //   width: 5,
-                        // ),
-                        AvatarWithStatus(
-                          image: "${AppConstants.imagesPath}person3.png",
-                          status: true,
-                          size: 20,
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Jhon Abraham",
-                              style: theme.textTheme.bodyMedium!.copyWith(
-                                fontWeight: FontWeight.bold,
-                                // height: 0.9,
-                              ),
-                            ),
-                            const Spacer(),
-                            Text(
-                              "Active now",
-                              style: theme.textTheme.bodySmall!.copyWith(
-                                color: theme.disabledColor,
-                                height: 1,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Spacer(),
-                        IconButton(
-                          onPressed: () {},
+            Column(children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: AppConstants.horizontalPadding),
+                child: Container(
+                  height: 60,
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                           icon: SvgPicture.asset(
-                            "${AppConstants.iconsPath}call2.svg",
+                            "${AppConstants.iconsPath}arrow-back.svg",
                             color: theme.colorScheme.onSurface,
+                          )),
+                      // SizedBox(
+                      //   width: 5,
+                      // ),
+                      AvatarWithStatus(
+                        image: "${AppConstants.imagesPath}person3.png",
+                        status: true,
+                        size: 20,
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Jhon Abraham",
+                            style: theme.textTheme.bodyMedium!.copyWith(
+                              fontWeight: FontWeight.bold,
+                              // height: 0.9,
+                            ),
                           ),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: SvgPicture.asset(
-                            "${AppConstants.iconsPath}video.svg",
-                            color: theme.colorScheme.onSurface,
+                          const Spacer(),
+                          Text(
+                            "Active now",
+                            style: theme.textTheme.bodySmall!.copyWith(
+                              color: theme.disabledColor,
+                              height: 1,
+                            ),
                           ),
+                        ],
+                      ),
+                      const Spacer(),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, AppRoutes.voiceCall,
+                              arguments: false);
+                        },
+                        icon: SvgPicture.asset(
+                          "${AppConstants.iconsPath}call2.svg",
+                          color: theme.colorScheme.onSurface,
                         ),
-                      ],
-                    ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, AppRoutes.videoCall,
+                              arguments: false);
+                        },
+                        icon: SvgPicture.asset(
+                          "${AppConstants.iconsPath}video.svg",
+                          color: theme.colorScheme.onSurface,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: AppConstants.horizontalPadding),
-                    child: ListView(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      children: List.generate(_messages.length, (index) {
-                        final message = _messages[index];
-                        final isCurrentUser = message.senderId == "me";
-                        final _key = GlobalKey();
-                        var _timeWidth = double.infinity;
-                        return Column(
-                          children: [
-                            if (index == 0)
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 2, horizontal: 4),
-                                decoration: BoxDecoration(
-                                    color: theme.colorScheme.secondary,
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 2),
-                                  child: Text(
-                                    "Today",
-                                    style: theme.textTheme.bodySmall!.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                    ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: AppConstants.horizontalPadding),
+                  child: ListView(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    children: List.generate(_messages.length, (index) {
+                      final message = _messages[index];
+                      final isCurrentUser = message.senderId == "me";
+                      final _key = GlobalKey();
+                      var _timeWidth = double.infinity;
+                      return Column(
+                        children: [
+                          if (index == 0)
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 2, horizontal: 4),
+                              decoration: BoxDecoration(
+                                  color: theme.colorScheme.secondary,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 2),
+                                child: Text(
+                                  "Today",
+                                  style: theme.textTheme.bodySmall!.copyWith(
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
-                            Align(
-                              alignment: isCurrentUser
-                                  ? Alignment.centerRight
-                                  : Alignment.centerLeft,
-                              child: Row(
-                                mainAxisAlignment: isCurrentUser
-                                    ? MainAxisAlignment.end
-                                    : MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  if (!isCurrentUser)
-                                    CircleAvatar(
-                                      backgroundColor: theme.canvasColor,
-                                      foregroundImage: AssetImage(
-                                          "${AppConstants.imagesPath}person3.png"),
-                                      radius: 20,
-                                    ),
-                                  if (!isCurrentUser)
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                  Container(
-                                    constraints: BoxConstraints(
-                                        maxWidth: (2 * width) / 3, minWidth: 40),
-                                    child: Column(
-                                      crossAxisAlignment: isCurrentUser
-                                          ? CrossAxisAlignment.end
-                                          : CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        if (!isCurrentUser)
-                                          Text(
-                                            "Jhon Abraham",
-                                            style: theme.textTheme.headlineSmall,
-                                          ),
-                                        Container(
-                                            padding: const EdgeInsets.all(10),
-                                            margin: const EdgeInsets.symmetric(
-                                                vertical: 10),
-                                            key: _key,
-                                            decoration: BoxDecoration(
-                                                color: isCurrentUser
-                                                    ? theme.primaryColor
-                                                    : theme.colorScheme.secondary,
-                                                borderRadius: BorderRadius.only(
-                                                    topLeft: Radius.circular(
-                                                        isCurrentUser ? 15 : 0),
-                                                    topRight: Radius.circular(
-                                                        isCurrentUser ? 0 : 15),
-                                                    bottomLeft:
-                                                        const Radius.circular(15),
-                                                    bottomRight:
-                                                        const Radius.circular(15))),
-                                            child: _getMessage(
-                                                message, isCurrentUser)),
-                                        StatefulBuilder(
-                                            builder: (context, setInnerState) {
-                                          WidgetsBinding.instance
-                                              .addPostFrameCallback((_) {
-                                            final size =
-                                                _key.currentContext?.size;
-                                            if (size != null) {
-                                              final _width = size.width;
-                                              setInnerState(() {
-                                                _timeWidth =
-                                                    _width > 60 ? _width : 60;
-                                              });
-                                            }
-                                          });
-                                          return Container(
-                                            width: _timeWidth,
-                                            alignment: Alignment.centerRight,
-                                            child: Text(
-                                              message.sentDateTime.toTimeFormat(),
-                                              style: theme.textTheme.bodySmall!
-                                                  .copyWith(
-                                                color: theme.disabledColor,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          );
-                                        })
-                                      ],
-                                    ),
+                            ),
+                          Align(
+                            alignment: isCurrentUser
+                                ? Alignment.centerRight
+                                : Alignment.centerLeft,
+                            child: Row(
+                              mainAxisAlignment: isCurrentUser
+                                  ? MainAxisAlignment.end
+                                  : MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (!isCurrentUser)
+                                  CircleAvatar(
+                                    backgroundColor: theme.canvasColor,
+                                    foregroundImage: AssetImage(
+                                        "${AppConstants.imagesPath}person3.png"),
+                                    radius: 20,
                                   ),
-                                ],
-                              ),
-                            )
-                          ],
-                        );
-                      }),
-                    ),
+                                if (!isCurrentUser)
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                Container(
+                                  constraints: BoxConstraints(
+                                      maxWidth: (2 * width) / 3, minWidth: 40),
+                                  child: Column(
+                                    crossAxisAlignment: isCurrentUser
+                                        ? CrossAxisAlignment.end
+                                        : CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      if (!isCurrentUser)
+                                        Text(
+                                          "Jhon Abraham",
+                                          style: theme.textTheme.headlineSmall,
+                                        ),
+                                      Container(
+                                          padding: const EdgeInsets.all(10),
+                                          margin: const EdgeInsets.symmetric(
+                                              vertical: 10),
+                                          key: _key,
+                                          decoration: BoxDecoration(
+                                              color: isCurrentUser
+                                                  ? theme.primaryColor
+                                                  : theme.colorScheme.secondary,
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(
+                                                      isCurrentUser ? 15 : 0),
+                                                  topRight: Radius.circular(
+                                                      isCurrentUser ? 0 : 15),
+                                                  bottomLeft:
+                                                      const Radius.circular(15),
+                                                  bottomRight:
+                                                      const Radius.circular(
+                                                          15))),
+                                          child: _getMessage(
+                                              message, isCurrentUser)),
+                                      StatefulBuilder(
+                                          builder: (context, setInnerState) {
+                                        WidgetsBinding.instance
+                                            .addPostFrameCallback((_) {
+                                          final size =
+                                              _key.currentContext?.size;
+                                          if (size != null) {
+                                            final _width = size.width;
+                                            setInnerState(() {
+                                              _timeWidth =
+                                                  _width > 60 ? _width : 60;
+                                            });
+                                          }
+                                        });
+                                        return Container(
+                                          width: _timeWidth,
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                            message.sentDateTime.toTimeFormat(),
+                                            style: theme.textTheme.bodySmall!
+                                                .copyWith(
+                                              color: theme.disabledColor,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        );
+                                      })
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      );
+                    }),
                   ),
                 ),
-                ChatInput(),
-              ]
-            ),
+              ),
+              ChatInput(),
+            ]),
             ShareContent()
           ],
         ),
@@ -331,9 +337,8 @@ class _ConversationState extends State<Conversation> {
       iconColor: theme.primaryColor,
       waveWidth: ((2 * width) / 3) - 110,
       timingStyle: theme.textTheme.bodyMedium!.copyWith(
-        height: 0,
-        color:  isCurrentUser ? Colors.white : theme.colorScheme.onSurface
-      ),
+          height: 0,
+          color: isCurrentUser ? Colors.white : theme.colorScheme.onSurface),
       onError: (p0) {
         print(p0.message);
       },
