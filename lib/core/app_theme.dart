@@ -9,7 +9,7 @@ class AppTheme {
   static const Color secondaryContainerColor = Color(0x884C525A);
   static const Color errorColor = Color(0xFFFF2D1B);
   static const Color outLineColor = Color(0xFF363F3B);
-  static const Color disabledColor = Color(0xFF797C7B);
+  static const Color disabledColor = Color(0xFF7F7F7F);
   static const Color onlineColor = Color(0xFF0FE16D);
   static const Color callingColor = Color(0xFF1CB536);
   static const Color offlineColor = Color(0xFF9A9E9C);
@@ -74,6 +74,7 @@ class AppTheme {
       colorScheme: const ColorScheme.light(
         primary: primaryColor,
         secondary: secondaryColor,
+        inverseSurface: secondaryDarkColor,
          error: errorColor,
          outline: outLineColor, 
           secondaryContainer: secondaryContainerColor
@@ -143,6 +144,7 @@ class AppTheme {
       colorScheme: const ColorScheme.dark(
         primary: primaryColor,
         secondary: secondaryDarkColor,
+        inverseSurface: secondaryColor,
         error: errorColor,
         outline: outLineColor,
         onSurface: Colors.white,

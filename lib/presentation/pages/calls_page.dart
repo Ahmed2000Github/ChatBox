@@ -3,6 +3,7 @@ import 'package:chat_box/core/extensions/date_time.dart';
 import 'package:chat_box/domain/entities/contact.dart';
 import 'package:chat_box/domain/entities/contact_call.dart';
 import 'package:chat_box/domain/entities/enums/call_type.dart';
+import 'package:chat_box/presentation/components/custom_rectangle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/svg.dart';
@@ -151,16 +152,7 @@ class CallsPage extends StatelessWidget {
                         topRight: Radius.circular(30))),
                 child: Column(
                   children: [
-                    Center(
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 20),
-                        width: 30,
-                        height: 5,
-                        decoration: BoxDecoration(
-                            color: theme.disabledColor,
-                            borderRadius: BorderRadius.circular(40)),
-                      ),
-                    ),
+                   CustomRectangle(),
                     const SizedBox(
                       height: 10,
                     ),

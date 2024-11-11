@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
             MessagesPage(),
             CallsPage(),
             ContactsPage(),
-            SettingsPage()
+            SettingsPage(onBack: _onItemTapped,)
           ],
         ),
       ),
