@@ -134,8 +134,8 @@ class CallsPage extends StatelessWidget {
                         ),
                         borderRadius: BorderRadius.circular(40)),
                     child: SvgPicture.asset(
-                      AppConstants.iconsPath + "add-contact.svg",
-                      color: theme.textTheme.bodySmall!.color,
+                      AppConstants.iconsPath + "add_call.svg",
+                      color: theme.colorScheme.onSurface,
                     )),
               ),
             ],
@@ -188,7 +188,7 @@ class CallsPage extends StatelessWidget {
                         children: List.generate(_contactCalls.length, (index) {
                           final contactCall = _contactCalls[index];
                           final isLastIndex = index == _contactCalls.length - 1;
-                          return _getCalLContactItem(
+                          return _getCallContactItem(
                               context, contactCall, isLastIndex);
                         }),
                       ),
@@ -199,7 +199,7 @@ class CallsPage extends StatelessWidget {
     );
   }
 
-  Widget _getCalLContactItem(
+  Widget _getCallContactItem(
       BuildContext context, ContactCall item, bool isLastIndex) {
     final theme = Theme.of(context);
     return Column(

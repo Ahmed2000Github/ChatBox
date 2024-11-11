@@ -2,6 +2,7 @@ import 'package:chat_box/presentation/views/conversation.dart';
 import 'package:chat_box/presentation/views/home.dart';
 import 'package:chat_box/presentation/views/login.dart';
 import 'package:chat_box/presentation/views/not_found.dart';
+import 'package:chat_box/presentation/views/search_contact.dart';
 import 'package:chat_box/presentation/views/signup.dart';
 import 'package:chat_box/presentation/views/video_call.dart';
 import 'package:chat_box/presentation/views/voice_call.dart';
@@ -16,6 +17,7 @@ class AppRoutes {
   static const String conversation = '/conversation';
   static const String voiceCall = '/voiceCall';
   static const String videoCall = '/videoCall';
+  static const String searchContact = '/searchContact';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     Widget page;
@@ -35,6 +37,9 @@ class AppRoutes {
         break;
       case conversation:
         page = Conversation();
+        break;
+      case searchContact:
+        page = SearchContact();
         break;
       case voiceCall:
         final isExternalCaller = settings.arguments as bool;

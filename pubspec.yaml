@@ -20,6 +20,7 @@ dependencies:
   file_picker:
   waved_audio_player:
   flutter_riverpod: 
+  get_it:
 
 
 
