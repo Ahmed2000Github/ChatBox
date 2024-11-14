@@ -13,6 +13,7 @@ class AppTheme {
   static const Color onlineColor = Color(0xFF0FE16D);
   static const Color callingColor = Color(0xFF1CB536);
   static const Color offlineColor = Color(0xFF9A9E9C);
+  static const String fontFamily = "Caros";
 
   static ThemeData get lightTheme {
     return ThemeData(
@@ -26,7 +27,7 @@ class AppTheme {
         iconTheme: IconThemeData(color: Colors.white),
         titleTextStyle: TextStyle(
           color: Colors.white,
-          fontFamily: "Caros",
+          fontFamily: fontFamily,
           fontSize: 20,
         ),
       ),
@@ -36,32 +37,32 @@ class AppTheme {
       ),
       textTheme: const TextTheme(
         headlineLarge: TextStyle(
-          fontFamily: "Caros",
+          fontFamily: fontFamily,
           fontSize: 52,
           color: Colors.black,
         ),
         headlineMedium: TextStyle(
-          fontFamily: "Caros",
+          fontFamily: fontFamily,
           fontSize: 20,
           color: Colors.black,
         ),
         headlineSmall: TextStyle(
-          fontFamily: "Caros",
+          fontFamily: fontFamily,
           fontSize: 18,
           color: Colors.black,
         ),
         bodyLarge: TextStyle(
-          fontFamily: "Caros",
+          fontFamily: fontFamily,
           fontSize: 16,
           color: Colors.black,
         ),
         bodyMedium: TextStyle(
-          fontFamily: "Caros",
+          fontFamily: fontFamily,
           fontSize: 14,
           color: Colors.black,
         ),
         bodySmall: TextStyle(
-          fontFamily: "Caros",
+          fontFamily: fontFamily,
           fontSize: 12,
           height: 2,
           color: Colors.black,
@@ -97,7 +98,7 @@ class AppTheme {
         iconTheme: IconThemeData(color: Colors.white),
         titleTextStyle: TextStyle(
           color: Colors.white,
-          fontFamily: "Caros",
+          fontFamily: fontFamily,
           fontSize: 20,
         ),
       ),
@@ -107,32 +108,32 @@ class AppTheme {
       ),
       textTheme: const TextTheme(
         headlineLarge: TextStyle(
-          fontFamily: "Caros",
+          fontFamily: fontFamily,
           fontSize: 52,
           color: Colors.white,
         ),
          headlineMedium: TextStyle(
-          fontFamily: "Caros",
+          fontFamily: fontFamily,
           fontSize: 20,
           color: Colors.white,
         ),
         headlineSmall: TextStyle(
-          fontFamily: "Caros",
+          fontFamily: fontFamily,
           fontSize: 18,
           color: Colors.white,
         ),
        bodyLarge: TextStyle(
-          fontFamily: "Caros",
+          fontFamily: fontFamily,
           fontSize: 16,
           color: Colors.white,
         ),
         bodyMedium: TextStyle(
-          fontFamily: "Caros",
+          fontFamily: fontFamily,
           fontSize: 14,
           color: Colors.white,
         ),
         bodySmall: TextStyle(
-          fontFamily: "Caros",
+          fontFamily: fontFamily,
           fontSize: 12,
           height: 2,
           color: Colors.white,

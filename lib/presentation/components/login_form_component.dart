@@ -49,6 +49,7 @@ class LoginFormComponent extends StatelessWidget {
               return null;
             },
           ),
+           SizedBox(height: 20),
           Spacer(),
           Column(
             children: [

@@ -1,7 +1,14 @@
-import 'package:chat_box/presentation/components/custom_rectangle.dart';
+import 'package:chat_box/core/app_routes.dart';
+import 'package:chat_box/core/widgets/custom_rectangle.dart';
+import 'package:chat_box/presentation/viewmodels/authentication/logout_view_model.dart';
+import 'package:chat_box/presentation/viewmodels/authentication/states/logout_state.dart';
+import 'package:chat_box/presentation/viewmodels/authentication/states/user_infos_state.dart';
+import 'package:chat_box/presentation/viewmodels/authentication/user_infos_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_box/core/app_constants.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
 
 class SettingsPage extends StatelessWidget {
   final _settings = [
@@ -88,56 +95,91 @@ class SettingsPage extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                          horizontal: AppConstants.horizontalPadding),
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: theme.disabledColor,
-                            foregroundImage: AssetImage(
-                                "${AppConstants.imagesPath}main-person.png"),
-                            radius: 30,
-                          ),
-                          SizedBox(width: 10),
-                          Expanded(
-                              child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Nazrul Islam",
-                                  style:
-                                      theme.textTheme.headlineSmall!.copyWith(
-                                    color: theme.scaffoldBackgroundColor,
-                                    overflow: TextOverflow.ellipsis,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  "Never give up 💪",
-                                  style: theme.textTheme.bodySmall!.copyWith(
-                                      color: theme.disabledColor,
+                    Consumer(builder: (context, ref, child) {
+                      final userInfosViewModel = GetIt.I<
+                          StateNotifierProvider<UserInfosViewModel,
+                              UserInfosState>>();
+                      final userInfosState = ref.watch(userInfosViewModel);
+                      final userImage = userInfosState.user?.profileImage;
+                      return Container(
+                        margin: EdgeInsets.symmetric(
+                            horizontal: AppConstants.horizontalPadding),
+                        child: Row(
+                          children: [
+                            ClipOval(
+                              child: userInfosState.isLoading
+                                  ? null // Optionally show a loading indicator
+                                  : userImage != null
+                                      ? Image.network(
+                                          userImage,
+                                          width: 60,
+                                          height: 60,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : SvgPicture.asset(
+                                          "${AppConstants.iconsPath}message.svg",
+                                          width: 60,
+                                          height: 60,
+                                          color: theme.colorScheme.onSurface,
+                                        ),
+                            ),
+                            SizedBox(width: 10),
+                            Expanded(
+                                child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 5),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    userInfosState.user?.name ?? "",
+                                    style:
+                                        theme.textTheme.headlineSmall!.copyWith(
+                                      color: theme.scaffoldBackgroundColor,
                                       overflow: TextOverflow.ellipsis,
                                       fontWeight: FontWeight.bold,
-                                      height: .1),
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Text(
+                                    userInfosState.user?.description ?? "",
+                                    style: theme.textTheme.bodySmall!.copyWith(
+                                        color: theme.disabledColor,
+                                        overflow: TextOverflow.ellipsis,
+                                        fontWeight: FontWeight.bold,
+                                        height: .1),
+                                  ),
+                                ],
+                              ),
+                            )),
+                             Consumer(builder: (context, ref, child) {
+                              final logOutViewModel = GetIt.I<
+                                  StateNotifierProvider<LogOutViewModel,
+                                      LogOutState>>();
+                              final logOutState = ref.watch(logOutViewModel);
+                              if(logOutState.isSuccess){
+                                WidgetsBinding.instance.addPostFrameCallback((_) {
+                                  Navigator.pushNamedAndRemoveUntil(context, AppRoutes.welcome, (route)=>false);
+                                  ref.watch(logOutViewModel.notifier).resetState();
+                                });
+                              }
+                              return GestureDetector(
+                                onTap: () => ref.watch(logOutViewModel.notifier)(),
+                                child: SvgPicture.asset(
+                                  "${AppConstants.iconsPath}qr-code.svg",
+                                  width: 24,
                                 ),
-                              ],
-                            ),
-                          )),
-                          SvgPicture.asset(
-                            "${AppConstants.iconsPath}qr-code.svg",
-                            width: 24,
-                          )
-                        ],
-                      ),
-                    ),
+                              );
+                            })
+                          ],
+                        ),
+                      );
+                    }),
                     Container(
-                      margin: EdgeInsets.symmetric(vertical:20),
-                      child: Divider(color: theme.disabledColor.withOpacity(.2),)),
+                        margin: EdgeInsets.symmetric(vertical: 20),
+                        child: Divider(
+                          color: theme.disabledColor.withOpacity(.2),
+                        )),
                     Expanded(
                       child: ListView(
                         padding: EdgeInsets.only(
@@ -160,7 +202,7 @@ class SettingsPage extends StatelessWidget {
     final theme = Theme.of(context);
     return Column(
       children: [
-         SizedBox(height: 30),
+        SizedBox(height: 30),
         GestureDetector(
           onTap: () {
             print(item.targetPage);
@@ -182,24 +224,29 @@ class SettingsPage extends StatelessWidget {
                       color: theme.disabledColor.withOpacity(.8),
                     ),
                   ),
+                ),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        item.title,
+                        style: theme.textTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: theme.scaffoldBackgroundColor),
+                      ),
+                      if (item.description.isNotEmpty)
+                        Text(
+                          item.description,
+                          style: theme.textTheme.bodySmall!.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: theme.disabledColor.withOpacity(.8)),
+                        ),
+                    ],
+                  ),
                 )
-               ,SizedBox(width: 10),
-               Expanded(
-                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(item.title,style: theme.textTheme.bodyLarge!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: theme.scaffoldBackgroundColor
-                    ),),
-                    if(item.description.isNotEmpty)Text(item.description,style: theme.textTheme.bodySmall!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: theme.disabledColor.withOpacity(.8)
-                    ),),
-                  ],
-                 ),
-               )
               ],
             ),
           ),

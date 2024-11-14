@@ -3,7 +3,7 @@ import 'package:chat_box/core/app_constants.dart';
 import 'package:chat_box/core/app_routes.dart';
 import 'package:chat_box/core/extensions/date_time.dart';
 import 'package:chat_box/domain/entities/message.dart';
-import 'package:chat_box/domain/message_type.dart';
+import 'package:chat_box/domain/entities/enums/message_type.dart';
 import 'package:chat_box/presentation/components/avatar_with_status.dart';
 import 'package:chat_box/presentation/components/chat_input.dart';
 import 'package:chat_box/presentation/components/share_content.dart';

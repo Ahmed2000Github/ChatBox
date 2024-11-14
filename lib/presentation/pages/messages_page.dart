@@ -2,8 +2,12 @@ import 'package:chat_box/core/app_constants.dart';
 import 'package:chat_box/domain/entities/chat_entry.dart';
 import 'package:chat_box/presentation/components/chat_list_item.dart';
 import 'package:chat_box/presentation/components/stories_component.dart';
+import 'package:chat_box/presentation/viewmodels/authentication/states/user_infos_state.dart';
+import 'package:chat_box/presentation/viewmodels/authentication/user_infos_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
 class MessagesPage extends StatelessWidget {
@@ -93,11 +97,31 @@ class MessagesPage extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              CircleAvatar(
-                backgroundColor: theme.scaffoldBackgroundColor,
-                foregroundImage: AssetImage(AppConstants.imagesPath + "main-person.png",),
-                radius: 22,
-              )
+              Consumer(builder: (context, ref, child) {
+                final userInfosViewModel = GetIt.I<
+                    StateNotifierProvider<UserInfosViewModel,
+                        UserInfosState>>();
+                final userInfosState = ref.watch(userInfosViewModel);
+                final userImage = userInfosState.user?.profileImage;
+
+               return ClipOval(
+                  child: userInfosState.isLoading
+                      ? null // Optionally show a loading indicator
+                      : userImage != null
+                          ? Image.network(
+                              userImage,
+                              width: AppConstants.iconButtonSize,
+                              height: AppConstants.iconButtonSize,
+                              fit: BoxFit.cover,
+                            )
+                          : SvgPicture.asset(
+                              "${AppConstants.iconsPath}message.svg",
+                              width: AppConstants.iconButtonSize,
+                              height: AppConstants.iconButtonSize,
+                              color: theme.colorScheme.onSurface,
+                            ),
+                );
+              })
             ],
           ),
         ),
@@ -121,12 +145,14 @@ class MessagesPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(40)),
                       ),
                     ),
-                    const SizedBox(height: 10,),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Expanded(
                       child: ListView(
                         padding: EdgeInsets.only(
                             left: AppConstants.horizontalPadding,
-                            right:  AppConstants.horizontalPadding,
+                            right: AppConstants.horizontalPadding,
                             bottom: 10),
                         children: _chatEntries.map((chatEntry) {
                           return ChatListItem(chatEntry: chatEntry);

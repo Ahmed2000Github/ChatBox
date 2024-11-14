@@ -1,26 +1,19 @@
 import 'package:chat_box/core/app_routes.dart';
 import 'package:chat_box/core/app_theme.dart';
-import 'package:chat_box/domain/entities/contact.dart';
-import 'package:chat_box/presentation/viewmodels/search_contact.dart';
+import 'package:chat_box/injection_container.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_it/get_it.dart';
 
-void setupLocator() {
-  final GetIt getIt = GetIt.instance;
-  getIt.registerLazySingleton<
-          StateNotifierProvider<SearchContactViewModel, List<Contact>>>(
-      () => StateNotifierProvider<SearchContactViewModel, List<Contact>>((ref) {
-            return SearchContactViewModel();
-          }));
-}
 
-void main() {
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setupLocator();
+  await Firebase.initializeApp();
+  await InjectionContainer().initialize();
   runApp(const ChatBox());
 }
-
+ 
 class ChatBox extends StatelessWidget {
   const ChatBox({super.key});
 
@@ -34,7 +27,7 @@ class ChatBox extends StatelessWidget {
         darkTheme: AppTheme.darkTheme,
         themeMode: ThemeMode.system,
         onGenerateRoute: AppRoutes.generateRoute,
-        initialRoute: AppRoutes.home,
+        initialRoute: AppRoutes.welcome,
       ),
     );
   }

@@ -3,7 +3,7 @@ import 'package:chat_box/core/extensions/date_time.dart';
 import 'package:chat_box/domain/entities/contact.dart';
 import 'package:chat_box/domain/entities/contact_call.dart';
 import 'package:chat_box/domain/entities/enums/call_type.dart';
-import 'package:chat_box/presentation/components/custom_rectangle.dart';
+import 'package:chat_box/core/widgets/custom_rectangle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/svg.dart';

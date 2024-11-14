@@ -12,15 +12,22 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_svg:
-  uuid:
-  intl: 
-  flutter_slidable:
-  audioplayers:
-  file_picker:
-  waved_audio_player:
-  flutter_riverpod: 
-  get_it:
+  flutter_svg: ^2.0.14
+  uuid: ^4.5.1
+  intl: ^0.19.0
+  flutter_slidable: ^3.1.1
+  audioplayers: ^6.1.0
+  file_picker: ^8.1.4
+  waved_audio_player: ^1.2.1
+  flutter_riverpod: ^2.6.1
+  get_it: ^8.0.2
+  
+  flutter_facebook_auth: ^7.1.1
+  google_sign_in: ^6.2.2
+  firebase_auth: ^5.3.2
+  firebase_core: ^3.7.0
+  internet_connection_checker_plus: ^2.5.2
+  dartz: ^0.10.1
 
 
 

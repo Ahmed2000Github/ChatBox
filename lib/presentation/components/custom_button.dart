@@ -25,7 +25,7 @@ class CustomButton extends StatelessWidget {
                 opacity: textOpacity??1,
                 child: Text(text,
                 style: theme.textTheme.bodyLarge!.copyWith(
-                  color: theme.scaffoldBackgroundColor,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
                 ),

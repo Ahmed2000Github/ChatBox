@@ -2,7 +2,7 @@ import 'package:chat_box/core/app_constants.dart';
 import 'package:chat_box/core/app_routes.dart';
 import 'package:chat_box/core/app_utils.dart';
 import 'package:chat_box/presentation/components/external_auth_component.dart';
-import 'package:chat_box/presentation/components/text_divider_component.dart';
+import 'package:chat_box/core/widgets/text_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -28,6 +28,7 @@ class Welcome extends StatelessWidget {
                 horizontal: AppConstants.horizontalPadding),
             child: ListView(
               children: [
+                 SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: SvgPicture.asset(
@@ -48,19 +49,22 @@ class Welcome extends StatelessWidget {
                         style: theme.textTheme.headlineLarge,
                       ),
                     )),
+                     SizedBox(height: 5),
                 Align(
                     alignment: Alignment.centerLeft,
                     child: Opacity(
                       opacity: 0.7,
                       child: Text(
                         "Our chat app is the perfect way to stay connected with friends and family.",
-                        style: theme.textTheme.bodyLarge,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     )),
                     const ExternalAuthComponent(),
               TextDivider(text: "or"),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoutes.signup);
+                  },
                   child: Container(
                     width: double.infinity,
                     height: AppConstants.buttonHeight,

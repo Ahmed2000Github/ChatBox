@@ -1,4 +1,4 @@
-import 'package:chat_box/domain/message_type.dart';
+import 'package:chat_box/domain/entities/enums/message_type.dart';
 
 class Message {
   Message({
