@@ -40,7 +40,11 @@ class ExternalAuthComponent extends ConsumerWidget {
         GetIt.I<StateNotifierProvider<SignInViewModel, SignInState>>();
     SignInState signInState = ref.watch(signInViewModel);
     signInState = (signInState is T) ? signInState : SignInState();
-
+     print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+     print(signInState.isSuccess);
+     print(signInState.isLoading);
+     print(signInState.errorMessage);
+     print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
     if (signInState.isSuccess) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         final userInfosViewModel = GetIt.I<

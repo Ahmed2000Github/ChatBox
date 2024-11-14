@@ -3,6 +3,7 @@ import 'package:chat_box/data/datasources/auth_remote_data_source_impl.dart';
 import 'package:chat_box/data/datasources/interfaces/auth_remote_data_source.dart';
 import 'package:chat_box/data/repositories/auth_repository_impl.dart';
 import 'package:chat_box/domain/repositories/auth_repository.dart';
+import 'package:chat_box/domain/usecases/authentication/facebook_auth_usecase.dart';
 import 'package:chat_box/domain/usecases/authentication/get_user_infos_usecase.dart';
 import 'package:chat_box/domain/usecases/authentication/google_auth_usecase.dart';
 import 'package:chat_box/domain/usecases/authentication/logout_usecase.dart';
@@ -38,11 +39,13 @@ class InjectionContainer {
             (ref) => UserInfosViewModel(serviceLocator())));
     serviceLocator.registerLazySingleton(() =>
         StateNotifierProvider<SignInViewModel, SignInState>(
-            (ref) => SignInViewModel(serviceLocator())));
+            (ref) => SignInViewModel(serviceLocator(), serviceLocator())));
 
 // Usecases
 
     serviceLocator.registerLazySingleton(() => LogOutUseCase(serviceLocator()));
+    serviceLocator
+        .registerLazySingleton(() => FacebookAuthUsecase(serviceLocator()));
     serviceLocator
         .registerLazySingleton(() => GetUserInfosUsecase(serviceLocator()));
     serviceLocator
