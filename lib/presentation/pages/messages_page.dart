@@ -115,7 +115,7 @@ class MessagesPage extends StatelessWidget {
                               fit: BoxFit.cover,
                             )
                           : SvgPicture.asset(
-                              "${AppConstants.iconsPath}message.svg",
+                              "${AppConstants.iconsPath}user.svg",
                               width: AppConstants.iconButtonSize,
                               height: AppConstants.iconButtonSize,
                               color: theme.colorScheme.onSurface,

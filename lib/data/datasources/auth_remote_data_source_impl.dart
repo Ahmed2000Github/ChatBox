@@ -45,7 +45,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<UserCredential> signIn(SignInModel signIn) async {
     try {
-      await firebaseInstance.currentUser?.reload();
       return await firebaseInstance.signInWithEmailAndPassword(
         email: signIn.email,
         password: signIn.password,

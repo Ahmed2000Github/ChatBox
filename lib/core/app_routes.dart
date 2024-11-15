@@ -24,6 +24,7 @@ class AppRoutes {
     bool isLeftSliding = false;
     switch (settings.name) {
       case welcome:
+        isLeftSliding = true;
         page = const Welcome();
         break;
       case login:

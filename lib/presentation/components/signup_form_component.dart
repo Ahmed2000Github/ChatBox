@@ -1,10 +1,10 @@
 import 'package:chat_box/presentation/components/custom_button.dart';
 import 'package:chat_box/presentation/components/input_auth_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SignUpFormComponent extends StatefulWidget {
-  final formKey ;
-
+  final formKey;
 
   SignUpFormComponent({super.key, this.formKey});
 
@@ -13,11 +13,14 @@ class SignUpFormComponent extends StatefulWidget {
 }
 
 class _SignUpFormComponentState extends State<SignUpFormComponent> {
-   final TextEditingController _emailTextEditingController = TextEditingController(text: "");
+  final TextEditingController _emailTextEditingController =
+      TextEditingController(text: "");
 
-   final TextEditingController _nameTextEditingController = TextEditingController(text: "");
+  final TextEditingController _nameTextEditingController =
+      TextEditingController(text: "");
 
-   final TextEditingController _passwordTextEditingController = TextEditingController(text: "");
+  final TextEditingController _passwordTextEditingController =
+      TextEditingController(text: "");
   @override
   void dispose() {
     _emailTextEditingController.dispose();
@@ -25,10 +28,11 @@ class _SignUpFormComponentState extends State<SignUpFormComponent> {
     _passwordTextEditingController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return    Container(
+    return Container(
       margin: EdgeInsets.only(top: 40),
       child: Form(
         key: widget.formKey,
@@ -37,14 +41,14 @@ class _SignUpFormComponentState extends State<SignUpFormComponent> {
             InputAuthField(
               labelText: 'Your name',
               textEditingController: _emailTextEditingController,
-              validator: (value){
+              validator: (value) {
                 if (value == null || value.trim().isEmpty) {
                   return "Invalid name";
                 }
                 if (value.length < 4) {
                   return "Name must be at least 4 characters";
                 }
-              
+
                 return null;
               },
             ),
@@ -70,14 +74,14 @@ class _SignUpFormComponentState extends State<SignUpFormComponent> {
               labelText: 'Password',
               textEditingController: _passwordTextEditingController,
               obscureText: true,
-               validator: (value) {
+              validator: (value) {
                 if (value == null || value.trim().isEmpty) {
                   return "Invalid Password";
                 }
                 if (value.length < 8) {
                   return "Password must be at least 8 characters";
                 }
-              
+
                 return null;
               },
             ),
@@ -86,8 +90,9 @@ class _SignUpFormComponentState extends State<SignUpFormComponent> {
               labelText: 'Confirm Password',
               obscureText: true,
               validator: (value) {
-                if (value == null || value.trim().isEmpty||
-                    _passwordTextEditingController.text !=value) {
+                if (value == null ||
+                    value.trim().isEmpty ||
+                    _passwordTextEditingController.text != value) {
                   return "Passwords do not match";
                 }
                 return null;
@@ -95,8 +100,11 @@ class _SignUpFormComponentState extends State<SignUpFormComponent> {
             ),
             Spacer(),
             const SizedBox(height: 10),
-                CustomButton(text: "Create an account"),
-            
+            Consumer(
+              builder: (context,ref,child) {
+                return CustomButton(onPressed: () {}, text: "Create an account");
+              }
+            ),
           ],
         ),
       ),

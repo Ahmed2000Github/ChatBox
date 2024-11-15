@@ -117,10 +117,10 @@ class SettingsPage extends StatelessWidget {
                                           fit: BoxFit.cover,
                                         )
                                       : SvgPicture.asset(
-                                          "${AppConstants.iconsPath}message.svg",
+                                          "${AppConstants.iconsPath}user.svg",
                                           width: 60,
                                           height: 60,
-                                          color: theme.colorScheme.onSurface,
+                                          color: theme.scaffoldBackgroundColor,
                                         ),
                             ),
                             SizedBox(width: 10),
