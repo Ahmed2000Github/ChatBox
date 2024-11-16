@@ -10,5 +10,6 @@ abstract class AuthRemoteDataSource {
   Future<UserCredential> googleAuthentication();
   Future<UserCredential> facebookAuthentication();
   Future<UserInfosModel> userInfos();
+    Future<Unit> deleteUser();
     Future<Unit> verifyEmail();
 }

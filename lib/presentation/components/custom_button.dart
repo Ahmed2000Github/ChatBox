@@ -33,7 +33,7 @@ class CustomButton extends StatelessWidget {
             child: isLoading
                 ? CustomLoading.withSizeAndNoBorder(
                     size: AppConstants.buttonHeight,
-                    color: theme.scaffoldBackgroundColor)
+                    color:Colors.white)
                 : Text(
                     text,
                     style: theme.textTheme.bodyLarge!.copyWith(

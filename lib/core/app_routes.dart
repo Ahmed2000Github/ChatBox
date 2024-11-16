@@ -1,5 +1,7 @@
 import 'package:chat_box/presentation/views/conversation.dart';
+import 'package:chat_box/presentation/views/email_verification.dart';
 import 'package:chat_box/presentation/views/home.dart';
+import 'package:chat_box/presentation/views/initial.dart';
 import 'package:chat_box/presentation/views/login.dart';
 import 'package:chat_box/presentation/views/not_found.dart';
 import 'package:chat_box/presentation/views/search_contact.dart';
@@ -11,8 +13,10 @@ import 'package:flutter/material.dart';
 
 class AppRoutes {
   static const String welcome = '/welcome';
+  static const String initial = '/initial';
   static const String login = '/login';
   static const String signup = '/signup';
+  static const String emailVerification = '/emailVerification';
   static const String home = '/home';
   static const String conversation = '/conversation';
   static const String voiceCall = '/voiceCall';
@@ -27,11 +31,17 @@ class AppRoutes {
         isLeftSliding = true;
         page = const Welcome();
         break;
+      case initial:
+        page = const Initial();
+        break;
       case login:
         page = Login();
         break;
       case signup:
         page = Signup();
+        break;
+      case emailVerification:
+        page = EmailVerification();
         break;
       case home:
         page = Home();

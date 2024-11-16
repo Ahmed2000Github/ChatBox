@@ -36,9 +36,14 @@ class AppTheme {
         textTheme: ButtonTextTheme.primary,
       ),
       textTheme: const TextTheme(
-        headlineLarge: TextStyle(
+         displayLarge: TextStyle(
           fontFamily: fontFamily,
           fontSize: 52,
+          color: Colors.black,
+        ),
+        headlineLarge: TextStyle(
+          fontFamily: fontFamily,
+          fontSize: 30,
           color: Colors.black,
         ),
         headlineMedium: TextStyle(
@@ -107,9 +112,14 @@ class AppTheme {
         textTheme: ButtonTextTheme.primary,
       ),
       textTheme: const TextTheme(
-        headlineLarge: TextStyle(
+         displayLarge: TextStyle(
           fontFamily: fontFamily,
           fontSize: 52,
+          color: Colors.white,
+        ),
+        headlineLarge: TextStyle(
+          fontFamily: fontFamily,
+          fontSize: 30,
           color: Colors.white,
         ),
          headlineMedium: TextStyle(

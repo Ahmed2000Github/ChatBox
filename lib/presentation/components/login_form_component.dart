@@ -22,13 +22,14 @@ class LoginFormComponent extends StatefulWidget {
 class _LoginFormComponentState extends State<LoginFormComponent> {
   late TextEditingController _emailTextEditingController;
   late TextEditingController _passwordTextEditingController;
-  bool isFormValid = false;
+  bool isEmailValid = true;
+  bool isPasswordValid = true;
 
   @override
   void initState() {
     super.initState();
     _emailTextEditingController =
-        TextEditingController(text: "ahmed@gmail.com");
+        TextEditingController(text: "ahmedelrhaouti2000@gmail.com");
     _passwordTextEditingController = TextEditingController(text: "12345678");
   }
 
@@ -51,17 +52,17 @@ class _LoginFormComponentState extends State<LoginFormComponent> {
             textEditingController: _emailTextEditingController,
             validator: (value) {
               if (value == null || value.trim().isEmpty) {
-                isFormValid = false;
+                isEmailValid = false;
                 return "Invalid email address";
               }
               String pattern =
                   r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
               RegExp regex = RegExp(pattern);
               if (!regex.hasMatch(value)) {
-                isFormValid = false;
+                isEmailValid = false;
                 return 'Please enter a valid email address'; // Valid format
               }
-              isFormValid = true;
+              isEmailValid = true;
               return null;
             },
           ),
@@ -73,14 +74,14 @@ class _LoginFormComponentState extends State<LoginFormComponent> {
             obscureText: true,
             validator: (value) {
               if (value == null || value.trim().isEmpty) {
-                isFormValid = false;
+                isPasswordValid = false;
                 return "Invalid Password";
               }
               if (value.length < 8) {
-                isFormValid = false;
+                isPasswordValid = false;
                 return "Password must be at least 8 characters";
               }
-              isFormValid = true;
+              isPasswordValid = true;
               return null;
             },
           ),
@@ -117,7 +118,10 @@ class _LoginFormComponentState extends State<LoginFormComponent> {
                   Spacer(),
                   CustomButton(
                     onPressed: () {
-                      if ((!isFormValid)) return;
+                      print(isEmailValid);
+                      print(isPasswordValid);
+                      final isFormValid = isEmailValid && isPasswordValid;
+                      if (!isFormValid) return;
                       final credentials = SignInEntity(
                           password: _passwordTextEditingController.text,
                           email: _emailTextEditingController.text);

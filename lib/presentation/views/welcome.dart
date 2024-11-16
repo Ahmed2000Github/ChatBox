@@ -46,7 +46,7 @@ class Welcome extends StatelessWidget {
                        width: 2*width / 3,
                       child: Text(
                         "Connect friends easily & quickly",
-                        style: theme.textTheme.headlineLarge,
+                        style: theme.textTheme.displayLarge,
                       ),
                     )),
                      SizedBox(height: 5),

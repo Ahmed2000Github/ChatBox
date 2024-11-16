@@ -135,7 +135,7 @@ class SettingsPage extends StatelessWidget {
                                     userInfosState.user?.name ?? "",
                                     style:
                                         theme.textTheme.headlineSmall!.copyWith(
-                                      color: theme.scaffoldBackgroundColor,
+                                      color: Colors.white,
                                       overflow: TextOverflow.ellipsis,
                                       fontWeight: FontWeight.bold,
                                     ),

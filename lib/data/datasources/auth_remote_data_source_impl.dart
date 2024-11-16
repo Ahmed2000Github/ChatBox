@@ -45,10 +45,15 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<UserCredential> signIn(SignInModel signIn) async {
     try {
-      return await firebaseInstance.signInWithEmailAndPassword(
+      final userCredential = await firebaseInstance.signInWithEmailAndPassword(
         email: signIn.email,
         password: signIn.password,
       );
+      if (userCredential.user?.emailVerified ?? false) {
+        return userCredential;
+      } else {
+        throw NoUserException();
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw ExistedAccountException();
@@ -63,12 +68,22 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<UserCredential> signUp(SignUpModel signUp) async {
     try {
-      FirebaseAuth firebaseInstance = FirebaseAuth.instance;
-      await firebaseInstance.currentUser?.reload();
-      return await firebaseInstance.createUserWithEmailAndPassword(
+      final userCredential =
+          await firebaseInstance.createUserWithEmailAndPassword(
         email: signUp.email,
         password: signUp.password,
       );
+      User? user = userCredential.user;
+
+      if (user != null) {
+        await user.updateDisplayName(signUp.name);
+        await user.updatePhotoURL(
+            "https://static.vecteezy.com/system/resources/previews/019/896/008/original/male-user-avatar-icon-in-flat-design-style-person-signs-illustration-png.png");
+        await user.reload();
+        print("User registered with name: ${signUp.name}");
+        print("s user verified : ${user.emailVerified}");
+      }
+      return userCredential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw WeekPassException();
@@ -81,8 +96,15 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
+  Future<Unit> deleteUser() async {
+    await firebaseInstance.currentUser?.reload();
+    await firebaseInstance.currentUser?.delete();
+    return Future.value(unit);
+  }
+
+  @override
   Future<Unit> verifyEmail() async {
-    final user = FirebaseAuth.instance.currentUser;
+    final user = firebaseInstance.currentUser;
     if (user != null) {
       try {
         await user.reload();
@@ -104,16 +126,16 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<UserInfosModel> userInfos() async {
-    final user = FirebaseAuth.instance.currentUser;
+    final user = firebaseInstance.currentUser;
     if (user != null) {
       try {
         await user.reload();
         return UserInfosModel(
             id: user.uid,
             email: user.email ?? "",
-            name: user.displayName??"",
+            name: user.displayName ?? "",
             description: "Hello there I'am using ChatBox",
-            profileImage: user.photoURL );
+            profileImage: user.photoURL);
       } on FirebaseAuthException catch (e) {
         if (e.code == 'too-many-requests') {
           throw TooManyRequestsException();
