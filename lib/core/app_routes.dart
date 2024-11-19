@@ -1,4 +1,6 @@
 import 'package:chat_box/presentation/views/conversation.dart';
+import 'package:chat_box/presentation/views/create_story.dart';
+import 'package:chat_box/presentation/views/display_story.dart';
 import 'package:chat_box/presentation/views/email_verification.dart';
 import 'package:chat_box/presentation/views/home.dart';
 import 'package:chat_box/presentation/views/initial.dart';
@@ -18,6 +20,8 @@ class AppRoutes {
   static const String signup = '/signup';
   static const String emailVerification = '/emailVerification';
   static const String home = '/home';
+  static const String displayStory = '/displayStory';
+  static const String createStory = '/createStory';
   static const String conversation = '/conversation';
   static const String voiceCall = '/voiceCall';
   static const String videoCall = '/videoCall';
@@ -45,6 +49,12 @@ class AppRoutes {
         break;
       case home:
         page = Home();
+        break;
+      case displayStory:
+        page = DisplayStory();
+        break;
+      case createStory:
+        page = CreateStory();
         break;
       case conversation:
         page = Conversation();

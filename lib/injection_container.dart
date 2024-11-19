@@ -13,6 +13,7 @@ import 'package:chat_box/domain/usecases/authentication/google_auth_usecase.dart
 import 'package:chat_box/domain/usecases/authentication/logout_usecase.dart';
 import 'package:chat_box/domain/usecases/authentication/send_email_use_case.dart';
 import 'package:chat_box/domain/usecases/authentication/sign_up_usecase.dart';
+import 'package:chat_box/domain/usecases/stories/create_story_usecase.dart';
 import 'package:chat_box/presentation/viewmodels/authentication/app_initialization_view_model.dart';
 import 'package:chat_box/presentation/viewmodels/authentication/email_verification_view_model.dart';
 import 'package:chat_box/presentation/viewmodels/authentication/logout_view_model.dart';
@@ -49,10 +50,9 @@ class InjectionContainer {
         (ref) =>
             EmailVerificationViewModel(serviceLocator(), serviceLocator())));
 
-    serviceLocator.registerLazySingleton(() =>
-        StateNotifierProvider<
-        AppInitializationViewModel, AppInitializationState>(
-            (ref) => AppInitializationViewModel(serviceLocator())));
+    serviceLocator.registerLazySingleton(() => StateNotifierProvider<
+            AppInitializationViewModel, AppInitializationState>(
+        (ref) => AppInitializationViewModel(serviceLocator())));
     serviceLocator.registerLazySingleton(() =>
         StateNotifierProvider<SearchContactViewModel, List<Contact>>(
             (ref) => SearchContactViewModel()));
@@ -76,6 +76,7 @@ class InjectionContainer {
 // Usecases
 
     serviceLocator.registerLazySingleton(() => LogOutUseCase(serviceLocator()));
+    serviceLocator.registerLazySingleton(() => CreateStoryUsecase());
     serviceLocator.registerLazySingleton(
         () => AppInitializationUsecase(serviceLocator()));
     serviceLocator
