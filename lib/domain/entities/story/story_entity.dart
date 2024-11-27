@@ -1,13 +1,13 @@
-class Story {
+class StoryEntity {
   String id;
   String name;
   String profileImage;
   String mediaLink;
-  DateTime createdDate;
-  Story(
+  DateTime creationDate;
+  StoryEntity(
       {required this.id,
       required this.name,
       required this.profileImage,
       required this.mediaLink,
-      required this.createdDate});
+      required this.creationDate});
 }

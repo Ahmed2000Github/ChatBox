@@ -1,4 +1,4 @@
-import 'package:chat_box/domain/entities/sign_up_entity.dart';
+import 'package:chat_box/domain/entities/authentication/sign_up_entity.dart';
 import 'package:chat_box/domain/usecases/authentication/sign_up_usecase.dart';
 import 'package:chat_box/presentation/viewmodels/authentication/states/sign_up_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

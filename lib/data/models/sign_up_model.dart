@@ -1,4 +1,4 @@
-import 'package:chat_box/domain/entities/sign_up_entity.dart';
+import 'package:chat_box/domain/entities/authentication/sign_up_entity.dart';
 
 class SignUpModel extends SignUpEntity {
   const SignUpModel(

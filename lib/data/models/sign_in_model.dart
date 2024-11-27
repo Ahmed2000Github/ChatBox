@@ -1,4 +1,4 @@
-import 'package:chat_box/domain/entities/sign_in_entity.dart';
+import 'package:chat_box/domain/entities/authentication/sign_in_entity.dart';
 
 class SignInModel extends SignInEntity {
   const SignInModel({required String email, required String password})

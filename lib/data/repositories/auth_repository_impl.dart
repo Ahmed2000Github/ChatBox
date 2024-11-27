@@ -6,9 +6,9 @@ import 'package:chat_box/core/network/network_info.dart';
 import 'package:chat_box/data/datasources/interfaces/auth_remote_data_source.dart';
 import 'package:chat_box/data/models/sign_in_model.dart';
 import 'package:chat_box/data/models/sign_up_model.dart';
-import 'package:chat_box/domain/entities/sign_in_entity.dart';
-import 'package:chat_box/domain/entities/sign_up_entity.dart';
-import 'package:chat_box/domain/entities/user_entity.dart';
+import 'package:chat_box/domain/entities/authentication/sign_in_entity.dart';
+import 'package:chat_box/domain/entities/authentication/sign_up_entity.dart';
+import 'package:chat_box/domain/entities/authentication/user_entity.dart';
 import 'package:chat_box/domain/repositories/auth_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,13 +25,23 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, bool>> appEntry() async {
     if (!await networkInfo.isConnected) return Left(OfflineFailure());
     try {
+      FirebaseAuth.instance.currentUser?.reload();
       final userCredential = FirebaseAuth.instance.currentUser;
-      if (userCredential != null && userCredential.emailVerified) {
-        return const Right(true);
-      } else if (userCredential != null) {
-        await authRemoteDataSource.deleteUser();
+      if (userCredential == null) return const Right(false);
+      print("uuuuser found");
+      print(userCredential.displayName);
+      for (var profile in userCredential.providerData) {
+        if (profile.providerId == 'password') {
+          print("Logged in via email and password");
+          if (userCredential.emailVerified) {
+            return const Right(true);
+          } else {
+            await authRemoteDataSource.deleteUser();
+            return const Right(false); 
+          }
+        }
       }
-      return const Right(false);
+      return const Right(true);
     } catch (e) {
       return Left(ServerFailure());
     }
@@ -102,10 +112,11 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, Unit>> logOut() async {
     if (!await networkInfo.isConnected) return Left(OfflineFailure());
-
     try {
-      GoogleSignIn _googleSignIn = GoogleSignIn();
-      await _googleSignIn.signOut();
+      try {
+        GoogleSignIn _googleSignIn = GoogleSignIn();
+        await _googleSignIn.signOut();
+      } catch (e) {}
       await FirebaseAuth.instance.signOut();
       return const Right(unit);
     } catch (e) {

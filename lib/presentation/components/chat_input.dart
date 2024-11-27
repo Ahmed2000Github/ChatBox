@@ -99,8 +99,8 @@ class _ChatInputState extends State<ChatInput> {
                   width: 15,
                 ),
                 SizedBox(
-                  width: 40,
-                  height: 40,
+                  width: AppConstants.iconButtonSize,
+                  height:  AppConstants.iconButtonSize,
                   child: FloatingActionButton(
                     onPressed: () {},
                     elevation: 0,

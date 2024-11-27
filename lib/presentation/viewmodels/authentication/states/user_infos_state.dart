@@ -1,4 +1,4 @@
-import 'package:chat_box/domain/entities/user_entity.dart';
+import 'package:chat_box/domain/entities/authentication/user_entity.dart';
 
 class UserInfosState {
   bool isLoading;

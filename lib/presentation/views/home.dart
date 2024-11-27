@@ -3,17 +3,21 @@ import 'package:chat_box/presentation/pages/calls_page.dart';
 import 'package:chat_box/presentation/pages/contacts_page.dart';
 import 'package:chat_box/presentation/pages/messages_page.dart';
 import 'package:chat_box/presentation/pages/settings_page.dart';
+import 'package:chat_box/presentation/viewmodels/stories/states/story_state.dart';
+import 'package:chat_box/presentation/viewmodels/stories/story_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get_it/get_it.dart';
 
-class Home extends StatefulWidget {
+class Home extends ConsumerStatefulWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  ConsumerState<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends ConsumerState<Home> {
   int _currentIndex = 0;
   final PageController _pageController = PageController();
 
@@ -21,6 +25,18 @@ class _HomeState extends State<Home> {
     setState(() {
       _currentIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final storyViewModel =
+          GetIt.I<StateNotifierProvider<StoryViewModel, StoryState>>();
+      ref.watch(storyViewModel.notifier).load();
+    });
+     
   }
 
   void _onItemTapped(int selectedIndex) {

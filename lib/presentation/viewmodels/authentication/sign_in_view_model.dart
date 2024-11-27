@@ -1,4 +1,4 @@
-import 'package:chat_box/domain/entities/sign_in_entity.dart';
+import 'package:chat_box/domain/entities/authentication/sign_in_entity.dart';
 import 'package:chat_box/domain/usecases/authentication/email_auth_usecase.dart';
 import 'package:chat_box/domain/usecases/authentication/facebook_auth_usecase.dart';
 import 'package:chat_box/domain/usecases/authentication/google_auth_usecase.dart';

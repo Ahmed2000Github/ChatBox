@@ -1,5 +1,5 @@
 import 'package:chat_box/core/app_routes.dart';
-import 'package:chat_box/domain/entities/sign_in_entity.dart';
+import 'package:chat_box/domain/entities/authentication/sign_in_entity.dart';
 import 'package:chat_box/presentation/components/custom_button.dart';
 import 'package:chat_box/presentation/components/input_auth_field.dart';
 import 'package:chat_box/presentation/viewmodels/authentication/sign_in_view_model.dart';
