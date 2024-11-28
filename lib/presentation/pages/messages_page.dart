@@ -2,6 +2,7 @@ import 'package:chat_box/core/app_constants.dart';
 import 'package:chat_box/domain/entities/chat_entry.dart';
 import 'package:chat_box/presentation/components/chat_list_item.dart';
 import 'package:chat_box/presentation/components/stories_component.dart';
+import 'package:chat_box/presentation/components/user_avatar.dart';
 import 'package:chat_box/presentation/viewmodels/authentication/states/user_infos_state.dart';
 import 'package:chat_box/presentation/viewmodels/authentication/user_infos_view_model.dart';
 import 'package:flutter/material.dart';
@@ -104,22 +105,8 @@ class MessagesPage extends StatelessWidget {
                 final userInfosState = ref.watch(userInfosViewModel);
                 final userImage = userInfosState.user?.profileImage;
 
-               return ClipOval(
-                  child: userInfosState.isLoading
-                      ? null // Optionally show a loading indicator
-                      : userImage != null
-                          ? Image.network(
-                              userImage,
-                              width: AppConstants.iconButtonSize,
-                              height: AppConstants.iconButtonSize,
-                              fit: BoxFit.cover,
-                            )
-                          : SvgPicture.asset(
-                              "${AppConstants.iconsPath}user.svg",
-                              width: AppConstants.iconButtonSize,
-                              height: AppConstants.iconButtonSize,
-                              color: theme.colorScheme.onSurface,
-                            ),
+                return UserAvatar(
+                  url: userImage ?? "",
                 );
               })
             ],

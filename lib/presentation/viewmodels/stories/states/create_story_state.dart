@@ -1,10 +1,10 @@
 class CreateStoryState {
   bool isLoading;
   String? errorMessage;
-  bool isSuccess;
+  bool? isSuccess;
 
   CreateStoryState(
       {this.isLoading = false,
-      this.isSuccess = false,
+      this.isSuccess ,
       this.errorMessage});
 }

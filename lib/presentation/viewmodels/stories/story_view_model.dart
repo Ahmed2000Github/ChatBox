@@ -13,6 +13,5 @@ class StoryViewModel extends StateNotifier<StoryState> {
     final result = await getStoriesUsecase();
     state = result.toStateWithHandlers((result) => StoryState(stories: result),
         (failure) => StoryState(errorMessage: failure.getMessage()));
-    print("ssssssssssss ${state.stories.length}");
   }
 }

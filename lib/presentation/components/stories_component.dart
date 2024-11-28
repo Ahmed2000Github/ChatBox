@@ -11,32 +11,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 
 class StoriesComponent extends ConsumerWidget {
-  final _stories = [
-    StoryEntity(
-        id: "id",
-        name: "Adil",
-        profileImage: "${AppConstants.imagesPath}person1.png",
-        mediaLink: "mediaLink",
-        creationDate: DateTime.now()),
-    StoryEntity(
-        id: "id",
-        name: "Marina",
-        profileImage: "${AppConstants.imagesPath}person2.png",
-        mediaLink: "mediaLink",
-        creationDate: DateTime.now()),
-    StoryEntity(
-        id: "id",
-        name: "Dean",
-        profileImage: "${AppConstants.imagesPath}person3.png",
-        mediaLink: "mediaLink",
-        creationDate: DateTime.now()),
-    StoryEntity(
-        id: "id",
-        name: "Max",
-        profileImage: "${AppConstants.imagesPath}person1.png",
-        mediaLink: "mediaLink",
-        creationDate: DateTime.now()),
-  ];
   StoriesComponent({Key? key}) : super(key: key);
 
   @override
@@ -56,14 +30,8 @@ class StoriesComponent extends ConsumerWidget {
             EdgeInsets.symmetric(horizontal: AppConstants.horizontalPadding),
         scrollDirection: Axis.horizontal,
         children: [
-          GestureDetector(
-            onTap: () {
-              print("ssssssssssssssss");
-              Navigator.pushNamed(context, AppRoutes.createStory);
-            },
-            child: AddStoryComponent(
-              avatarSize: avatarSize,
-            ),
+          AddStoryComponent(
+            avatarSize: avatarSize,
           ),
           if (storyState.isLoading)
             ...List.generate(4, (index) {
@@ -74,30 +42,40 @@ class StoriesComponent extends ConsumerWidget {
               final story = storyState.stories[index];
               return Padding(
                 padding: EdgeInsets.only(left: 20),
-                child: Column(
-                  children: [
-                    Container(
-                        width: avatarSize,
-                        height: avatarSize,
-                        padding: EdgeInsets.all(2),
-                        decoration: BoxDecoration(
-                            // color: theme.textTheme.bodySmall!.color,
-                            border: Border.all(
-                                color: theme.colorScheme.primary, width: 2),
-                            borderRadius: BorderRadius.circular(40)),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(40),
-                          child: Image.network(
-                            story.profileImage,
-                            width: avatarSize,
-                          ),
-                        )),
-                    Spacer(),
-                    Text(
-                      story.name,
-                      style: theme.textTheme.bodyMedium,
-                    )
-                  ],
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoutes.displayStory,
+                        arguments: story);
+                  },
+                  child: Column(
+                    children: [
+                      Container(
+                          width: avatarSize,
+                          height: avatarSize,
+                          padding: EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                              // color: theme.textTheme.bodySmall!.color,
+                              border: Border.all(
+                                  color: theme.colorScheme.primary, width: 2),
+                              borderRadius: BorderRadius.circular(40)),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(40),
+                            child: Image.network(
+                              story.profileImage,
+                              width: avatarSize,
+                            ),
+                          )),
+                      Spacer(),
+                      SizedBox(
+                        width: 80,
+                        child: Text(
+                          story.name,
+                          style: theme.textTheme.bodyMedium!
+                              .copyWith(overflow: TextOverflow.ellipsis),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               );
             })

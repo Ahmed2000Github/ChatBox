@@ -1,3 +1,4 @@
+import 'package:chat_box/domain/entities/story/story_entity.dart';
 import 'package:chat_box/presentation/views/conversation.dart';
 import 'package:chat_box/presentation/views/create_story.dart';
 import 'package:chat_box/presentation/views/display_story.dart';
@@ -51,7 +52,10 @@ class AppRoutes {
         page = Home();
         break;
       case displayStory:
-        page = DisplayStory();
+        final story = settings.arguments as StoryEntity;
+        page = DisplayStory(
+          storyEntity: story,
+        );
         break;
       case createStory:
         page = CreateStory();

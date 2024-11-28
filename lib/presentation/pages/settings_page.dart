@@ -1,5 +1,6 @@
 import 'package:chat_box/core/app_routes.dart';
 import 'package:chat_box/core/widgets/custom_rectangle.dart';
+import 'package:chat_box/presentation/components/user_avatar.dart';
 import 'package:chat_box/presentation/viewmodels/authentication/logout_view_model.dart';
 import 'package:chat_box/presentation/viewmodels/authentication/states/logout_state.dart';
 import 'package:chat_box/presentation/viewmodels/authentication/states/user_infos_state.dart';
@@ -106,23 +107,7 @@ class SettingsPage extends StatelessWidget {
                             horizontal: AppConstants.horizontalPadding),
                         child: Row(
                           children: [
-                            ClipOval(
-                              child: userInfosState.isLoading
-                                  ? null // Optionally show a loading indicator
-                                  : userImage != null
-                                      ? Image.network(
-                                          userImage,
-                                          width: 60,
-                                          height: 60,
-                                          fit: BoxFit.cover,
-                                        )
-                                      : SvgPicture.asset(
-                                          "${AppConstants.iconsPath}user.svg",
-                                          width: 60,
-                                          height: 60,
-                                          color: theme.scaffoldBackgroundColor,
-                                        ),
-                            ),
+                           UserAvatar(url: userImage ?? "", size: 60,),
                             SizedBox(width: 10),
                             Expanded(
                                 child: Padding(

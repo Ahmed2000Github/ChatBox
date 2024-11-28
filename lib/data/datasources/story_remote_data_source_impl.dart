@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:chat_box/core/app_constants.dart';
+import 'package:chat_box/core/errors/exceptions.dart';
 import 'package:chat_box/core/network/network_services.dart';
 import 'package:chat_box/data/datasources/interfaces/story_remote_data_source.dart';
 import 'package:chat_box/data/models/create_story_model.dart';
@@ -36,10 +37,11 @@ class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
   Future<List<StoryModel>> retrive() async {
     try {
       // Replace `AppConstants.storiesCollection` with your collection name
+      final user = firebaseAuth.currentUser;
+      if(user == null) throw NoUserException();
       final result =
-          await firestore.collection(AppConstants.storiesCollection).get();
+          await firestore.collection(AppConstants.storiesCollection).where('email',isNotEqualTo: user.email).get();
 
-      // Iterate through the documents in the collection
 
       final stories = await Future.wait(result.docs.map((doc) async {
         final sender = (await firestore
@@ -52,6 +54,7 @@ class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
         print("sender id : ${sender['name']}");
         final model = StoryModel(
             id: doc.id,
+            caption: doc['caption'],
             creationDate:
                 DateTime.fromMillisecondsSinceEpoch(doc['creationDate'] as int),
             name: sender['name'],

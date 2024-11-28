@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:chat_box/core/app_constants.dart';
 
 class NetworkServices {
-  final baseUrl = "http://192.168.139.1:9080/";
 
   static final NetworkServices instance = NetworkServices.private();
 
@@ -15,9 +14,7 @@ class NetworkServices {
   }
 
   Future<String?> uploadStoryFile(File file) async {
-    final baseUrl = "http://192.168.139.1:9080/";
-    final String uploadUrl = "${baseUrl}api/uploadStoryFile";
-    print(uploadUrl);
+    const String uploadUrl = "${AppConstants.baseUrl}/uploadStoryFile";
     try {
       // Create HttpClient
       final HttpClient httpClient = HttpClient();

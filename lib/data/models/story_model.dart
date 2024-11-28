@@ -5,12 +5,14 @@ class StoryModel extends StoryEntity {
       {required id,
       required name,
       required profileImage,
+      required caption,
       required fileUrl,
       required creationDate})
       : super(
             id: id,
             name: name,
             profileImage: profileImage,
+            caption: caption,
             mediaLink: fileUrl,
             creationDate: creationDate);
 }

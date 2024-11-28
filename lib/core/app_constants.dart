@@ -19,7 +19,7 @@ class AppConstants {
     'ogg',
   ];
   static const String usersCollection = "users";
-  static const String  storiesCollection = "stories";
-  static const String  filesCollection = "files";
-
+  static const String storiesCollection = "stories";
+  static const String filesCollection = "files";
+  static const String baseUrl = "https://01bc-105-67-0-107.ngrok-free.app/api";
 }

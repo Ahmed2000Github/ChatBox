@@ -25,13 +25,13 @@ class CreateStory extends ConsumerStatefulWidget {
 class _CreateStoryState extends ConsumerState<CreateStory> {
   String? imagePath;
   String? _videoPath;
+  bool _imageInProcess = false;
   late StateNotifierProvider<CreateStoryViewModel, CreateStoryState>
       createStoryViewModel;
 
   @override
   void initState() {
     super.initState();
-
     createStoryViewModel = GetIt.I<
         StateNotifierProvider<CreateStoryViewModel, CreateStoryState>>();
   }
@@ -45,15 +45,15 @@ class _CreateStoryState extends ConsumerState<CreateStory> {
     final height = MediaQuery.of(context).size.height;
     final createStoryState = ref.watch(createStoryViewModel);
 
-     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (createStoryState.isSuccess) {
-        final storyViewModel = GetIt.I<
-            StateNotifierProvider<StoryViewModel, StoryState>>();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (createStoryState.isSuccess == null) return;
+      if (createStoryState.isSuccess!) {
+        final storyViewModel =
+            GetIt.I<StateNotifierProvider<StoryViewModel, StoryState>>();
         ref.watch(storyViewModel.notifier).load();
         Navigator.pop(context);
       } else
-        Navigator.pop(context);
-      ref.watch(createStoryViewModel.notifier).resetState();
+        ref.watch(createStoryViewModel.notifier).resetState();
     });
     return Scaffold(
       body: Stack(
@@ -122,7 +122,7 @@ class _CreateStoryState extends ConsumerState<CreateStory> {
                           ),
                       ],
                     )),
-                if (createStoryState.isLoading)
+                if (createStoryState.isLoading || _imageInProcess)
                   Expanded(
                       child: Center(
                     child: CustomLoading(
@@ -130,7 +130,9 @@ class _CreateStoryState extends ConsumerState<CreateStory> {
                       color: theme.colorScheme.onSurface,
                     ),
                   )),
-                if (imagePath == null && !createStoryState.isLoading)
+                if (imagePath == null &&
+                    !createStoryState.isLoading &&
+                    !_imageInProcess)
                   Expanded(
                       child: Center(
                           child: TextButton(
@@ -146,12 +148,15 @@ class _CreateStoryState extends ConsumerState<CreateStory> {
                                       await AppUtils.pickVideoFromCamera();
                                 }
                                 if (videoPath == null) return;
-                                print(videoPath);
+                                setState(() {
+                                  _imageInProcess = true;
+                                });
                                 final thumbnailPath =
                                     await AppUtils.extractFirstFrame(videoPath);
                                 setState(() {
                                   imagePath = thumbnailPath;
                                   _videoPath = videoPath;
+                                  _imageInProcess = false;
                                 });
                               },
                               child: Text(
