@@ -1,4 +1,4 @@
 # chat_box
 
-A chat application.
+A chat application (in developement process).
 
